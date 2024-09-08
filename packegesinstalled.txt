@@ -1,0 +1,6 @@
+react:
+npm i react-router-dom
+
+node: 
+
+npm i mongoose
