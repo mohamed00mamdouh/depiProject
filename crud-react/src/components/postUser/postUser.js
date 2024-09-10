@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {Form,Button} from 'react-bootstrap'
+import { useNavigate } from "react-router-dom";
 import './postUser.css'
 const PostUser= () => {
     const [formData,setFormData]=useState({
@@ -7,6 +8,7 @@ const PostUser= () => {
         email:"",
         phone:""
     })
+    const navigate=useNavigate()
 
     const handelInputChange= (event) =>{
         const {name, value}= event.target   
@@ -21,6 +23,20 @@ const PostUser= () => {
         console.log("name", formData.name)
         console.log("email", formData.email)
         console.log("phone", formData.phone)
+        try {
+            const response=await fetch("http://localhost:5000/api/user",{
+                method:"POST",
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+            const data = await response.json(response)
+            console.log(data)
+            navigate("/")
+        } catch (error) {
+            console.error(error.message)
+        }
     }
 
     return (
