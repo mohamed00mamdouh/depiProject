@@ -1,9 +1,12 @@
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { Col, Row, Table, Container } from 'react-bootstrap';
+import { Col, Row, Table, Container, Button } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 
 const Dashboard= () => {
     const [users, setUsers]= useState([])
+    const naviget= useNavigate()
+    
     useEffect(() => {
         const fetchUsers= async () =>{
             try {
@@ -17,6 +20,11 @@ const Dashboard= () => {
         }
         fetchUsers()
     }, [])
+
+    const handleUpdate= (userId) => {
+        naviget(`/user/${userId}`)
+    }
+
     return (
         <>
             <Container className='mt-5'>
@@ -29,7 +37,7 @@ const Dashboard= () => {
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
-                                    {/* <th>Action</th> */}
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,6 +46,21 @@ const Dashboard= () => {
                                         <td>{user.name}</td>
                                         <td>{user.email}</td>
                                         <td>{user.phone}</td>
+                                        <td>
+                                            <Button
+                                                variant='dark'
+                                                onClick={() => handleUpdate(user._id)}                                          
+                                            >
+                                                Update
+                                            </Button> {" "}
+
+                                            {/* <Button
+                                                variant='danger'
+                                                onClick={() => handleDelete(user._id) }
+                                            >
+                                                Delete
+                                            </Button> */}
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>

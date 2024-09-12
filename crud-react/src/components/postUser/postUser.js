@@ -42,6 +42,7 @@ const PostUser= () => {
     return (
         <>
             <div className='center-form'>
+                <h1>Post New User</h1>
                 <Form onSubmit={handelSubmit}>
                     <Form.Group controlId='formBasicName'>
                         <Form.Label>Name</Form.Label>
