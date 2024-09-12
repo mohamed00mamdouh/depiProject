@@ -14,6 +14,15 @@ class UserService{
         return await User.findById(userId);
     }
      
+    async updateUser(userId,updatedData){
+        return awaitUser.findByIdAndUpdate(userId,updatedData, {
+            new: true
+        })
+    }
+
+    async deleteUser(userId){
+        return await User.findByIdAndDelete(userId);
+    }
 
 }
 

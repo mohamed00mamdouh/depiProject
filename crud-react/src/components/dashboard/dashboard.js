@@ -7,22 +7,39 @@ const Dashboard= () => {
     const [users, setUsers]= useState([])
     const naviget= useNavigate()
     
-    useEffect(() => {
-        const fetchUsers= async () =>{
-            try {
-                const response= await fetch("http://localhost:5000/api/user")
-                const data = await response.json()
-                setUsers(data)
-            } catch (error) {
-                console.error(`error while fetching users: ${error.message}`);
-                
-            }
+    const fetchUsers= async () =>{
+        try {
+            const response= await fetch("http://localhost:5000/api/user")
+            const data = await response.json()
+            setUsers(data)
+        } catch (error) {
+            console.error(`error while fetching users: ${error.message}`);
+            
         }
+    }
+     
+    useEffect(() => {
+   
         fetchUsers()
     }, [])
 
     const handleUpdate= (userId) => {
         naviget(`/user/${userId}`)
+    }
+
+    const handleDelete= async(userId) => {
+        try {
+            const response= await fetch(`http://localhost:5000/api/user/${userId}`,{
+                method: "DELETE"
+            })
+            if(response.ok){
+                fetchUsers()
+            }
+            console.log(response)
+        } catch (error) {
+            console.error(`error while deleteing user: ${error.message}`);
+            
+        }
     }
 
     return (
@@ -54,12 +71,12 @@ const Dashboard= () => {
                                                 Update
                                             </Button> {" "}
 
-                                            {/* <Button
+                                             <Button
                                                 variant='danger'
                                                 onClick={() => handleDelete(user._id) }
                                             >
                                                 Delete
-                                            </Button> */}
+                                            </Button> 
                                         </td>
                                     </tr>
                                 ))}
