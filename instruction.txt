@@ -1,3 +1,0 @@
-connecting to db in nodejs is in this file 
-==>./crud-node/src/configuration/dbConfig.js
-
